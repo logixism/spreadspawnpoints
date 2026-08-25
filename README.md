@@ -1,6 +1,6 @@
 # Spread Spawnpoints
 
->! [!IMPORTANT]
+> [!IMPORTANT]
 > This is a fork of the original Spread Spawnpoints: <https://codeberg.org/verarr/spreadspawnpoints>
 > This fork adds functionality such as predefined spawnpoints, and other stuff my servers may need.
 
