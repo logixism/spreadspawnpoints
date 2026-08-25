@@ -4,6 +4,7 @@ public interface SpawnPointGenerators {
     static void init() {
         var _ = VanillaSpawnPointGenerator.TYPE;
         var _ = RandomSpawnPointGenerator.TYPE;
+        var _ = PredefinedSpawnPointGenerator.TYPE;
         var _ = GridSpawnPointGenerator.TYPE;
         var _ = SpringSpawnPointGenerator.TYPE;
     }

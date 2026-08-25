@@ -16,6 +16,7 @@ There are several patterns for how new players' spawnpoints are determined:
 | [**Random**](https://github.com/verarr/spreadspawnpoints/wiki/Generators#random)   | `spreadspawnpoints:random`  | Picks a completely random spawnpoint within specified bounds.                                                                                                            |
 | [**Grid**](https://github.com/verarr/spreadspawnpoints/wiki/Generators#grid)       | `spreadspawnpoints:grid`    | Spawnpoints are arranged in a grid in a spiral-like pattern.                                                                                                             |
 | [**Spring**](https://github.com/verarr/spreadspawnpoints/wiki/Generators#spring)   | `spreadspawnpoints:spring`  | Picks a random spawnpoint that is at least within a specified amount of blocks of another spawnpoint, but at least some specified blocks away from any other spawnpoint. |
+| **Predefined**                                                                     | `spreadspawnpoints:predefined` | Picks a random spawnpoint from a configured list.                                                                                                                        |
 | _more coming soon™_ | - | - |
 
 Most generators have more settings which can be adjusted to your liking. [See the wiki](https://github.com/verarr/spreadspawnpoints/wiki/Generators).
@@ -31,9 +32,15 @@ To change the generator or its settings:
 # change options (see wiki)
 /spawnpoints generator data {option1: 1, option2: 5}
 
+# configure a list of predefined spawnpoints
+/spawnpoints generator set spreadspawnpoints:predefined
+/spawnpoints generator data {spawnPoints:[{x:0,z:0},{x:1000,z:-500}]}
+
 # query currently active generator
 /spawnpoints generator query
 ```
+
+The predefined generator requires at least one spawnpoint. Its optional `seed` setting controls the random sequence.
 
 To reset players' spawnpoints:
 
