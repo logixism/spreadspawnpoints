@@ -1,0 +1,17 @@
+{
+    "required": true,
+    "package": "xyz.verarr.spreadspawnpoints.mixin",
+    "compatibilityLevel": "JAVA_25",
+    "minVersion": "0.8",
+    "client": [
+    ],
+    "mixins": [
+        "LegacyRandomSourceAccessor",
+        "PlayerSpawnFinderInvoker",
+        "PrepareSpawnTaskMixin",
+        "TeleportTransitionMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

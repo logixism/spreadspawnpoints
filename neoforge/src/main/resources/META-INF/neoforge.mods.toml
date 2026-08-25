@@ -1,0 +1,34 @@
+modLoader = "javafml"
+loaderVersion = "[10,)"
+#issueTrackerURL = ""
+license = "LGPL-3.0-only"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${version}"
+displayName = "${mod_name}"
+authors = "verarr"
+description = '''${mod_description}'''
+logoFile = "assets/spreadspawnpoints/icon.png"
+
+[[dependencies.spreadspawnpoints]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neoforge_version}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spreadspawnpoints]]
+modId = "minecraft"
+type = "required"
+versionRange = "${neoforge_minecraft_version}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spreadspawnpoints]]
+modId="commonpermissionsapi"
+type="required"
+side="BOTH"
+
+[[mixins]]
+config = "spreadspawnpoints.mixins.json"

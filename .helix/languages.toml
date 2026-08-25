@@ -1,0 +1,4 @@
+[[language]]
+name = "java"
+formatter = { command = "clang-format" , args = ["--assume-filename=%{buffer_name}"] }
+auto-format = true
