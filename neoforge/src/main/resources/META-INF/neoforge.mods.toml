@@ -30,5 +30,11 @@ modId="commonpermissionsapi"
 type="required"
 side="BOTH"
 
+[[dependencies.spreadspawnpoints]]
+modId="bluemap"
+type="optional"
+ordering="AFTER"
+side="SERVER"
+
 [[mixins]]
 config = "spreadspawnpoints.mixins.json"

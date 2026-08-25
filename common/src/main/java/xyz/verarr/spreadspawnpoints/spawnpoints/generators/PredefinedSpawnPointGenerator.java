@@ -16,6 +16,7 @@ import com.mojang.serialization.Decoder;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import org.joml.Vector2i;
+import org.joml.Vector2ic;
 import xyz.verarr.spreadspawnpoints.SpreadSpawnPoints;
 import xyz.verarr.spreadspawnpoints.mixin.LegacyRandomSourceAccessor;
 import xyz.verarr.spreadspawnpoints.spawnpoints.SpawnPointGenerator;
@@ -40,6 +41,13 @@ public class PredefinedSpawnPointGenerator implements SpawnPointGenerator {
 
     @Override
     public void remove(Vector2i spawnPoint) { }
+
+    /**
+     * Returns the configured spawnpoints as read-only vectors.
+     *
+     * @return the immutable configured spawnpoint list
+     */
+    public List<? extends Vector2ic> getSpawnPoints() { return spawnPoints; }
 
     // Serialization
     @Override

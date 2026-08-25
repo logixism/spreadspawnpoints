@@ -20,6 +20,10 @@ multimod {
                 name = "eclipseisoffline"
                 url = uri("https://maven.eclipseisoffline.xyz/releases")
             }
+            maven {
+                name = "bluecolored"
+                url = uri("https://repo.bluecolored.de/releases")
+            }
         }
     }
 

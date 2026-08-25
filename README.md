@@ -42,6 +42,8 @@ To change the generator or its settings:
 
 The predefined generator requires at least one spawnpoint. Its optional `seed` setting controls the random sequence.
 
+When [BlueMap](https://bluemap.bluecolored.de/) is installed, predefined spawnpoints are shown in a toggleable `Predefined spawnpoints` marker set. The markers update when the generator or its data changes.
+
 To reset players' spawnpoints:
 
 ```mcfunction

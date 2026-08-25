@@ -16,6 +16,10 @@ multimod.modPublishing {
 
 multimod.fabric(project(":common"))
 
+dependencies {
+    compileOnly(libs.bluemap.api)
+}
+
 // MultiMod includes every common source set; keep common tests out of loader artifacts.
 val commonTestSources = project(":common").file("src/test").toPath()
 tasks.withType<SourceTask>().configureEach {

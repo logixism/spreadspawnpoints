@@ -1,8 +1,11 @@
 package xyz.verarr.spreadspawnpoints.fabric;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.verarr.spreadspawnpoints.SpreadSpawnPoints;
+import xyz.verarr.spreadspawnpoints.spawnpoints.BlueMapIntegration;
 import xyz.verarr.spreadspawnpoints.commands.RespawnCommand;
 import xyz.verarr.spreadspawnpoints.commands.SpawnpointsCommand;
 
@@ -15,6 +18,12 @@ public final class SpreadSpawnPointsFabric extends SpreadSpawnPoints implements 
 
         // Run our common setup.
         init();
+
+        if (FabricLoader.getInstance().isModLoaded("bluemap")) {
+            BlueMapIntegration.register();
+            ServerLifecycleEvents.SERVER_STARTED.register(BlueMapIntegration::onServerStarted);
+            ServerLifecycleEvents.SERVER_STOPPED.register(BlueMapIntegration::onServerStopped);
+        }
     }
 
     @Override

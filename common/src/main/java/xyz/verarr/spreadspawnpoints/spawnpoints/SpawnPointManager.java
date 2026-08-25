@@ -1,6 +1,7 @@
 package xyz.verarr.spreadspawnpoints.spawnpoints;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -21,13 +22,16 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import org.joml.Vector2i;
+import org.joml.Vector2ic;
 import xyz.verarr.spreadspawnpoints.SpreadSpawnPoints;
 import xyz.verarr.spreadspawnpoints.spawnpoints.SpawnPointGenerator.SpawnPointGeneratorType;
+import xyz.verarr.spreadspawnpoints.spawnpoints.generators.PredefinedSpawnPointGenerator;
 import xyz.verarr.spreadspawnpoints.spawnpoints.generators.VanillaSpawnPointGenerator;
 
 public class SpawnPointManager extends SavedData {
     private static final SpawnPointGeneratorType<?> DEFAULT_SPAWNPOINT_GENERATOR =
         VanillaSpawnPointGenerator.TYPE;
+    private static volatile Consumer<SpawnPointManager> generatorChangeListener = _ -> {};
 
     /**
      * Constructs a spawnpoint generator of the specified type for the
@@ -53,11 +57,34 @@ public class SpawnPointManager extends SavedData {
     private SpawnPointManager(ServerLevel level) {
         this.level     = level;
         this.generator = constructSpawnPointGeneratorForWorld(DEFAULT_SPAWNPOINT_GENERATOR, level);
+        notifyGeneratorChanged();
     }
 
     private SpawnPointManager(ServerLevel level, SpawnPointGenerator generator) {
         this.level     = level;
         this.generator = generator;
+        notifyGeneratorChanged();
+    }
+
+    static void setGeneratorChangeListener(Consumer<SpawnPointManager> listener) {
+        generatorChangeListener = Objects.requireNonNull(listener);
+    }
+
+    ServerLevel level() { return level; }
+
+    List<? extends Vector2ic> predefinedSpawnPoints() {
+        if (generator instanceof PredefinedSpawnPointGenerator predefined)
+            return predefined.getSpawnPoints();
+        return null;
+    }
+
+    private void notifyGeneratorChanged() {
+        try {
+            generatorChangeListener.accept(this);
+        } catch (RuntimeException exception) {
+            SpreadSpawnPoints.LOGGER.error("Failed to update spawnpoint generator integration",
+                                           exception);
+        }
     }
 
     /**
@@ -87,6 +114,7 @@ public class SpawnPointManager extends SavedData {
                     -> new IllegalArgumentException("Unknown spawnpoint generator: "
                                                     + key.identifier()));
         generator = type.constructor().apply(level);
+        notifyGeneratorChanged();
     }
 
     /**
@@ -154,6 +182,7 @@ public class SpawnPointManager extends SavedData {
                                                      .getOrThrow(IllegalArgumentException::new);
         (modifier).accept(this.generator);
         this.setDirty();
+        notifyGeneratorChanged();
     }
 
     /**
